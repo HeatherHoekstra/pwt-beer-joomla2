@@ -21,14 +21,7 @@ JFactory::getDocument()->addScriptDeclaration('
 <form action="<?php echo JRoute::_('index.php?option=com_beers&layout=edit&id=' . (int) $this->beer->id); ?>"
       method="post" name="adminForm" id="beer-form" class="form-validate">
 
-	<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'details')); ?>
-
-	<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'details', Text::_('COM_BEERS_BANNER_DETAILS')); ?>
 	<?php echo $this->form->renderFieldset('details'); ?>
-	<?php echo JHtml::_('bootstrap.endTab'); ?>
-
-	<?php echo JHtml::_('bootstrap.endTabSet'); ?>
-
 
     <input type="hidden" name="task" value=""/>
 	<?php echo JHtml::_('form.token'); ?>

@@ -85,13 +85,6 @@ class BeersViewBeer extends HtmlView
 		JToolbarHelper::apply('beer.apply');
 		JToolbarHelper::save('beer.save');
 
-		JToolbarHelper::save2new('beer.save2new');
-
-		// If an existing item, can save to a copy.
-		if (!$isNew)
-		{
-			JToolbarHelper::save2copy('beer.save2copy');
-		}
 
 		if (empty($this->item->id))
 		{
