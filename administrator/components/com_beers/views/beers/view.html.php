@@ -31,6 +31,8 @@ class BeersViewBeers extends JViewLegacy
 		// alle biertjes ophalen
 		$this->getBeers = $this->get('Items');
 		$this->state    = $this->get('State');
+		$this->pagination    = $this->get('Pagination');
+
 
 		// creating the toolbar
 		$this->createToolbar();
@@ -43,7 +45,7 @@ class BeersViewBeers extends JViewLegacy
 	{
 		// all toolbar items
 		JToolbarHelper::title('Beers');
-		JToolbarHelper::addNew('beers.import', 'Biertjes opnieuw ophalen');
+		JToolbarHelper::addNew('beers.import', 'COM_BEERS_BEERS_ADD');
 		JToolbarHelper::editList('beers.edit');
 
 		if ($this->state->get('filter.published') != 2)

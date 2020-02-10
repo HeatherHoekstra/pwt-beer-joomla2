@@ -39,6 +39,7 @@
                 description="COM_BEERS_FIELD_DESCRIPTION_DESC"
                 class="input-xxlarge input-large-text"
                 size="40"
+                rows="10"
                 required="true"
         />
 
@@ -54,12 +55,14 @@
 
         <field
                 name="rating"
-                type="text"
+                type="number"
                 label="COM_BEERS_FIELD_RATING_LABEL"
                 description="COM_BEERS_FIELD_RATING_LABEL"
                 class="input-xxlarge input-large-text"
                 size="40"
                 required="true"
+                min="0"
+                max="5"
         />
 
     </fieldset>

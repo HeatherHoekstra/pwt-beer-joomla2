@@ -85,7 +85,6 @@ class BeersViewBeer extends HtmlView
 		JToolbarHelper::apply('beer.apply');
 		JToolbarHelper::save('beer.save');
 
-
 		if (empty($this->item->id))
 		{
 			JToolbarHelper::cancel('beer.cancel');

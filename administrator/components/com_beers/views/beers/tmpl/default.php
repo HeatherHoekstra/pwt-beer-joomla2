@@ -64,7 +64,9 @@ $user = Factory::getUser();
                 <td><?php echo $beer->rating ?></td>
             </tr>
 		<?php endforeach; ?>
-
+        <tr>
+			<?php echo $this->pagination->getListFooter(); ?>
+        </tr>
         </tbody>
     </table>
 
