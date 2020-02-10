@@ -26,7 +26,7 @@ class BeersModelBeers extends ListModel
 
 	public function import()
 	{
-		$data  = BeersHelper::orderBeers();
+		$data  = BeersHelper::retrieveBeers();
 		$model = BaseDatabaseModel::getInstance('Beer', 'BeersModel', ['ignore_request' => true]);
 
 		foreach ($data as $beer)

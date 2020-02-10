@@ -19,7 +19,6 @@ JHtml::_('formbehavior.chosen', 'select');
 defined('_JEXEC') or die('Restricted access');
 
 $user = Factory::getUser();
-//$userId = $user->get('id');
 ?>
 
 <form action="<?php echo JRoute::_('index.php?option=com_beers&view=beers'); ?>" name="adminForm" id="adminForm"
@@ -28,7 +27,7 @@ $user = Factory::getUser();
         <thead>
         <tr>
             <th width="1%" class="center">
-                <?php echo HTMLHelper::_('grid.checkall'); ?>
+				<?php echo HTMLHelper::_('grid.checkall'); ?>
             </th>
             <th>Status</th>
             <th>ID</th>
@@ -40,36 +39,36 @@ $user = Factory::getUser();
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($this->getBeers as $i => $beer):
-            $canEdit = $user->authorise('core.edit', 'com_beers.beers' . $beer->id);
-            $canChange = $user->authorise('core.edit.state', 'com_beers' . $beer->id);
-            ?>
+		<?php foreach ($this->getBeers as $i => $beer):
+			$canEdit = $user->authorise('core.edit', 'com_beers.beers' . $beer->id);
+			$canChange = $user->authorise('core.edit.state', 'com_beers' . $beer->id);
+			?>
             <tr>
                 <td class="center">
-                    <?php echo JHtml::_('grid.id', $i, $beer->id); ?>
+					<?php echo JHtml::_('grid.id', $i, $beer->id); ?>
                 </td>
 
                 <td><?php echo JHtml::_('jgrid.published', $beer->state, $i, 'beers.', $canChange, 'cb', $beer->publish_up, $beer->publish_down); ?></td>
 
-                <td><?= $beer->id ?></td>
+                <td><?php echo $beer->id ?></td>
                 <td>
-                    <?php if ($canEdit): ?>
-                        <a href="<?php echo JRoute::_('index.php?option=com_beers&task=beer.edit&id=' . (int)$beer->id); ?>"><?php echo $beer->name ?></a>
-                    <?php else: ?>
-                        <?php echo $this->escape($beer->name); ?>
-                    <?php endif; ?>
+					<?php if ($canEdit): ?>
+                        <a href="<?php echo JRoute::_('index.php?option=com_beers&task=beer.edit&id=' . (int) $beer->id); ?>"><?php echo $beer->name ?></a>
+					<?php else: ?>
+						<?php echo $this->escape($beer->name); ?>
+					<?php endif; ?>
                 </td>
-                <td><?= $beer->tagline ?></td>
-                <td><?= $beer->description ?></td>
-                <td><?= $beer->abv ?></td>
-                <td><?= $beer->rating ?></td>
+                <td><?php echo $beer->tagline ?></td>
+                <td><?php echo $beer->description ?></td>
+                <td><?php echo $beer->abv ?></td>
+                <td><?php echo $beer->rating ?></td>
             </tr>
-        <?php endforeach; ?>
+		<?php endforeach; ?>
 
         </tbody>
     </table>
 
     <input type="hidden" name="task" value=""/>
     <input type="hidden" name="boxchecked" value=""/>
-    <?php echo JHtml::_('form.token'); ?>
+	<?php echo JHtml::_('form.token'); ?>
 </form>
