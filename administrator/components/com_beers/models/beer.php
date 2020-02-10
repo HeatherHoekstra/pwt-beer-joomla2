@@ -89,6 +89,6 @@ class BeersModelBeer extends AdminModel
 			}
 		}
 
-		parent::save($array);
+		$this->save($array);
 	}
 }

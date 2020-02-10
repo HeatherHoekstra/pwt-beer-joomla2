@@ -61,7 +61,7 @@ $user = Factory::getUser();
                 <td><?php echo $beer->tagline ?></td>
                 <td><?php echo $beer->description ?></td>
                 <td><?php echo $beer->abv ?></td>
-                <td><?php echo $beer->rating ?></td>
+                <td><?php echo $beer->rating ?> / 5</td>
             </tr>
 		<?php endforeach; ?>
         <tr>
