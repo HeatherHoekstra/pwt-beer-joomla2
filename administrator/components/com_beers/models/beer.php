@@ -73,7 +73,7 @@ class BeersModelBeer extends AdminModel
 		return $data;
 	}
 
-	public function save($array)
+	public function saved($array)
 	{
 		if (isset($array['id']))
 		{
@@ -86,8 +86,6 @@ class BeersModelBeer extends AdminModel
 			catch (Exception $e)
 			{
 				// Exception thrown when PK ID is found and no row can be inserten with the same ID
-				echo 'test error';
-				echo $e->getMessage();
 			}
 		}
 

@@ -31,7 +31,7 @@ class BeersModelBeers extends ListModel
 
 		foreach ($data as $beer)
 		{
-			$model->save((array) $beer);
+			$model->saved((array) $beer);
 		}
 	}
 }

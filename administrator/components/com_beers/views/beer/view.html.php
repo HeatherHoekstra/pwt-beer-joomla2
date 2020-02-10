@@ -53,9 +53,9 @@ class BeersViewBeer extends HtmlView
 	 */
 	public function display($tpl = null)
 	{
-		$this->state = $this->get('state');
-		$this->beer  = $this->get('item');
-		$this->form  = $this->get('form');
+		$this->state = $this->get('State');
+		$this->beer  = $this->get('Item');
+		$this->form  = $this->get('Form');
 
 		if (count($errors = $this->get('Errors')))
 		{
