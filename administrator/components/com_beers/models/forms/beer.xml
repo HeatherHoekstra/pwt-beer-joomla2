@@ -65,6 +65,19 @@
                 max="5"
         />
 
+        <field
+                name="image_url"
+                type="URL"
+                label="COM_BEERS_URL_LABEL"
+                description="COM_BEERS_FIELD_RATING_LABEL"
+                class="input-xxlarge input-large-text"
+                size="40"
+                required="false"
+                min="0"
+                max="5"
+                disabled="true"
+        />
+
     </fieldset>
 
 </form>
