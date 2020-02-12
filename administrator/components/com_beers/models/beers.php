@@ -5,8 +5,6 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Joomla\CMS\MVC\Model\ListModel;
 
-// Registering Helper
-// Callable through BeersHelper::function() (is this case)
 JLoader::register('BeersHelper', JPATH_ADMINISTRATOR . '/components/com_beers/helpers/beers.php');
 
 class BeersModelBeers extends ListModel

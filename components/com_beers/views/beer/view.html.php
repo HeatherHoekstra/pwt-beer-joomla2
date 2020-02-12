@@ -34,8 +34,9 @@ class BeersViewBeer extends JViewLegacy
 	{
 		$id  = Factory::getApplication()->input->get('id');
 
-		// Retrieving beer information
-		$this->item = $this->getModel('Beer')->getBeer($id);
+		/** @var BeersModelBeer $model */
+		$model = $this->getModel('Beer');
+		$this->item = $model->getItem();
 
 		parent::display($tpl);
 	}

@@ -10,6 +10,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\MVC\Model\ItemModel;
 use Joomla\CMS\Table\Table;
 
 /**
@@ -17,95 +18,123 @@ use Joomla\CMS\Table\Table;
  *
  * @since  3.1
  */
-class BeersModelBeer extends JModelList
+class BeersModelBeer extends ItemModel
 {
-	/**
-	 * Method to get a table object, load it if necessary.
-	 *
-	 * @param   string  $type    The table name. Optional.
-	 * @param   string  $prefix  The class prefix. Optional.
-	 * @param   array   $config  Configuration array for model. Optional.
-	 *
-	 * @return  JTable  A JTable object
-	 *
-	 * @since   1.6
-	 */
 
-	public function getTable($type = "Beer", $prefix = "BeersTable", $config = array())
+	protected $_item;
+
+	public function populateState()
 	{
-		Table::addIncludePath('/components/com_beers/tables');
-
-		return Table::getInstance($type, $prefix, $config);
+		$this->setState('beer.id', Factory::getApplication()->input->get('id'));
+		parent::populateState();
 	}
 
-	/**
-	 * Method to build an SQL query to load the list data of all items with a given tag.
-	 *
-	 * @return  string  An SQL query
-	 *
-	 * @since   3.1
-	 */
-//	protected function getListQuery()
-//	{
-//		$id = Factory::getApplication()->input->get('id');
-//
-//		$db = Factory::getDbo();
-//
-//		$query = $db->getQuery(true);
-//
-//		$query
-//			->select('*')
-//			->from($db->quoteName('#__beers'));
-////			->where('id' . '=' . $id);
-//
-//		return $query;
-//	}
+	public function getItem($pk = null)
+	{
+		$pk = (!empty($pk)) ? $pk : (int) $this->getState('beer.id');
+		if (!isset($this->_item[$pk]))
+		{
+			$db = Factory::getDbo();
 
-	/**
-	 *  Return specific beer content
-	 *
-	 *  @param int $id given parameter of url
-	 *
-	 *  @return Object returned query data
-	 *
-	 *  @since 0.0.11
-	 * */
-	public function getBeer($id)
+			$query = $db->getQuery(true);
+
+			$query
+				->select('*')
+				->from($db->quoteName('#__beers'))
+				->where('id' . '=' . $db->quote($pk));
+
+			$db->setQuery($query);
+
+			$this->_item[$pk] = $db->loadObject();
+		}
+
+		return $this->_item[$pk];
+	}
+
+
+	public function insertRating($id, $rating)
+	{
+
+		$db = Factory::getDbo();
+
+		$columns =
+			[
+				'beer_id',
+				'rating',
+			];
+
+		$values =
+			[
+				$db->quote($id),
+				$db->quote($rating),
+			];
+
+		$query = $db->getQuery(true);
+
+		$query
+			->insert($db->quoteName('#__ratings'))
+			->columns($columns)
+			->values(implode(',', $values));
+
+		$db->setQuery($query);
+
+		$db->execute();
+	}
+
+	public function getAllRatings($id)
 	{
 		$db = Factory::getDbo();
 
 		$query = $db->getQuery(true);
 
 		$query
-			->select('*')
-			->from($db->quoteName('#__beers'))
-			->where('id' . '=' . $db->quote($id));
+			->select('rating')
+			->from($db->quoteName('#__ratings'))
+			->where($db->quoteName('beer_id'). '='. $db->quote($id));
 
 		$db->setQuery($query);
 
 		return $db->loadObjectList();
 	}
 
-	/**
-	 * Method to get the record form.
-	 *
-	 * @param   array    $data      Data for the form. [optional]
-	 * @param   boolean  $loadData  True if the form is to load its own data (default case), false if not. [optional]
-	 *
-	 * @return  JForm|boolean  A JForm object on success, false on failure
-	 *
-	 * @since   1.6
-	 */
-	public function getForm($data = array(), $loadData = true)
+	public function calcAverageRating($id)
 	{
-		// Get the form.
-		$form = $this->loadForm('com_beers.beer', 'beer', array('control' => 'jform', 'load_data' => $loadData));
+		$ratings = $this->getAllRatings($id);
+		$count = count($ratings);
+		$value = 0;
 
-		if (empty($form))
+		foreach($ratings as $rating)
 		{
-			return false;
+			$value += $rating->rating;
 		}
 
-		return $form;
+		return round(($value/$count));
+	}
+
+	public function updateAverageRating($id)
+	{
+		$avgRating = $this->calcAverageRating($id);
+
+		$db = Factory::getDbo();
+
+		$query = $db->getQuery(true);
+
+		// Fields to update.
+		$fields = [
+			$db->quoteName('rating') . ' = ' . $db->quote($avgRating),
+		];
+
+		// Conditions for which records should be updated.
+		$conditions = [
+			$db->quoteName('id') . ' = ' . $id,
+		];
+
+		$query->update($db->quoteName('#__beers'))->set($fields)->where($conditions);
+
+		$db->setQuery($query);
+
+		$db->execute();
+
+		return $avgRating;
 	}
 }

@@ -58,11 +58,9 @@
                 type="number"
                 label="COM_BEERS_FIELD_RATING_LABEL"
                 description="COM_BEERS_FIELD_RATING_LABEL"
-                class="input-xxlarge input-large-text"
+                class="input-xxlarge input-large-text readonly"
                 size="40"
                 required="true"
-                min="0"
-                max="5"
         />
 
         <field

@@ -9,32 +9,32 @@ $document = Factory::getDocument();
 JHtml::_('jquery.framework');
 
 
-foreach ($this->item as $item) : ?>
+//foreach ($this->item as $item) : ?>
 
-    <h1><?php echo $item->name; ?></h1>
-    <h4><?php echo $item->tagline ?></h4>
+<h1><?php echo $this->item->name; ?></h1>
+<h4><?php echo $this->item->tagline ?></h4>
 
-    <hr>
-	<?php if ($item->image_url !== 'noimg'): ?>
-        <img src="<?php echo $item->image_url ?>" alt="test" width="100">
-		<?php echo str_replace('<a href="/', '<a href="' . str_replace(URI::root(true), '', URI::root()), $app); ?>
-	<?php endif; ?>
-    <hr>
+<hr>
+<?php if ($this->item->image_url !== 'noimg'): ?>
+    <img src="<?php echo $this->item->image_url ?>" alt="test" width="100">
+	<?php echo str_replace('<a href="/', '<a href="' . str_replace(URI::root(true), '', URI::root()), $app); ?>
+<?php endif; ?>
+<hr>
 
-    <p><?php echo $item->description ?></p>
+<p><?php echo $this->item->description ?></p>
 
-    <p>Average rating: </p>
+<p>Average rating: </p>
 
-	<?php
+<?php
 
-	for ($i = 1; $i <= 5; $i++)
-	{
-		echo "<span class='icon-star' id='rating-" . $i . "' style='font-size: 24px;'></span>";
-	}
+for ($i = 1; $i <= 5; $i++)
+{
+	echo "<span class='icon-star' id='rating-" . $i . "' style='font-size: 24px;'></span>";
+}
 
-	?>
+?>
 
-<?php endforeach; ?>
+<?php //endforeach; ?>
 
 <hr>
 
@@ -47,31 +47,62 @@ for ($i = 1; $i <= 5; $i++)
 
 ?>
 
-<input type="hidden" name="rating" value="<?php echo $item->rating; ?>">
+<input type="hidden" name="rating" value="<?php echo $this->item->rating; ?>">
 <input id="token" type="hidden" name="<?php echo JSession::getFormToken() ?>" value="1"/>
 
 <script>
 
-    window.onload = function () {
-        let rating = document.getElementsByName('rating')[0];
-        activateStars(rating.value, 'rating');
+    const activeColor = '#efef21';
+    const beerID = new URL(document.URL).searchParams.get('id');
+    let storageLocation = 'rating-' + beerID;
 
-        // Request to test ajax call while page loads
-        let token = jQuery("#token").attr("name");
-        jQuery.ajax({
-            data: {[token]: "1", task: "ajax", format: "json", rating: rating.value},
-            success: function (result, status, xhr) {
-                console.log('ajax function successfully called!');
-            },
-            error: function () {
-                console.error('ajax call failed');
-            },
-        });
+    window.onload = function () {
+        activateStars(getRating(), 'rating');
+
+        if (JSON.parse(localStorage.getItem(storageLocation)) !== null) {
+            activateStars(JSON.parse(localStorage.getItem(storageLocation)).rating, 'star');
+        }
     };
 
-    // Defining colors for active and inactive stars
-    const activeColor = '#efef21';
-    const deactiveColor = '';
+    function getRating() {
+        return document.getElementsByName('rating')[0].value;
+    }
+
+    function insertLocalStorage(id) {
+        let date = new Date;
+
+        localStorage.setItem(storageLocation, JSON.stringify({'timestamp': date.getTime(), 'rating': id}));
+    }
+
+    function checkLocalStorage() {
+        let storage = JSON.parse(localStorage.getItem(storageLocation));
+        if (storage === null) {
+            return true;
+        }
+
+        let date = new Date;
+
+        return storage.timestamp === null ? true : (((date.getTime() / 1000) - (storage.timestamp / 1000)) > 5);
+    }
+
+    function ajaxCall(id) {
+        if (checkLocalStorage()) {
+
+            // Request to test ajax call while page loads
+            let token = jQuery("#token").attr("name");
+            jQuery.ajax({
+                data: {[token]: "1", task: "ajax", format: "json", rating: id},
+                success: function (result, status, xhr) {
+                    console.log('ajax function successfully called!');
+                    insertLocalStorage(id);
+                    activateStars(result.data, 'rating');
+                },
+                error: function () {
+                    console.error('ajax call failed');
+                },
+            });
+        }
+    }
 
     function activateStars(id, className) {
         clearStars(className);
@@ -81,39 +112,20 @@ for ($i = 1; $i <= 5; $i++)
         }
     }
 
-    // Clears rating 'form'
     function clearStars(className) {
         for (let i = 1; i <= 5; i++) {
-            document.getElementById(className + '-' + i).style.color = deactiveColor;
+            document.getElementById(className + '-' + i).style.color = '';
         }
     }
-
 
     document.addEventListener('click', function (e) {
         if (e.target.id.match('star-')) {
 
-            // define ID
             let idString = e.target.id;
             let id = idString.substr(idString.length - 1);
 
             activateStars(id, 'star');
+            ajaxCall(id);
         }
     });
-
-    window.onbeforeunload = function () {
-        let rating = document.getElementsByName('rating')[0];
-
-        // Request to test ajax call while page loads
-        let token = jQuery("#token").attr("name");
-        jQuery.ajax({
-            data: {[token]: "1", task: "ajax", format: "json", rating: rating.value},
-            success: function (result, status, xhr) {
-                console.log('ajax function successfully called!');
-            },
-            error: function () {
-                console.error('ajax call failed');
-            },
-        });
-    }
-
 </script>

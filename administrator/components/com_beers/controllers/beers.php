@@ -1,7 +1,6 @@
 <?php
 /**
- * @package     Joomla.Administrator
- * @subpackage  com_banners
+ * @package     Com_beers
  *
  * @copyright   Copyright (C) 2005 - 2020 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
@@ -13,7 +12,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 
 /**
- * Banners list controller class.
+ * Beers list controller class.
  *
  * @since  1.6
  */
@@ -26,19 +25,6 @@ class BeersControllerBeers extends JControllerAdmin
 	 * @since  1.6
 	 */
 	protected $text_prefix = 'COM_BEERS_BEERS';
-
-	/**
-	 * Constructor.
-	 *
-	 * @param   array  $config  An optional associative array of configuration settings.
-	 *
-	 * @see     JControllerLegacy
-	 * @since   1.6
-	 */
-	public function __construct($config = array())
-	{
-		parent::__construct($config);
-	}
 
 	/**
 	 * Method to get a model object, loading it if required.
@@ -56,11 +42,6 @@ class BeersControllerBeers extends JControllerAdmin
 		BaseDatabaseModel::addIncludePath('/administrator/components/com_beers/models');
 
 		return parent::getModel($name, $prefix, $config);
-	}
-
-	public function delete()
-	{
-		parent::delete();
 	}
 
 	public function import()

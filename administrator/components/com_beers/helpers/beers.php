@@ -16,7 +16,6 @@ defined('_JEXEC') or die('Restricted access');
  * */
 class BeersHelper extends JHelperContent
 {
-
 	/**
 	 *  Url used to connect and retrieve data from beer API
 	 *
@@ -25,7 +24,6 @@ class BeersHelper extends JHelperContent
 	protected static $apiUrl = "https://api.punkapi.com/v2/beers";
 
 	/**
-	 *
 	 *  Retrieving beer data from API and creating a readable object
 	 *
 	 * @return array of json object

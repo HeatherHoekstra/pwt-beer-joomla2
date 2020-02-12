@@ -22,14 +22,19 @@ class BeersViewBeer extends JViewLegacy
 	function display($tpl = null)
 	{
 		$input = Factory::getApplication()->input;
+
+		$model = $this->getModel('Beer');
+
 		$rating = $input->get('rating');
-		$model = $this->getModel();
+		$id = $input->get('id');
+//		$model->insertRating($id, $rating);
+
 		if ($rating)
 		{
-			// Insert rating into ratings database on ip address
-			// Rating model aanmaken & ophalen
-			// Als rating al bestaat op ip address returnen naar de view zodat deze weergeven kan worden
-			echo new JsonResponse($rating, 'message' , 'error');
+			$model->insertRating($id, $rating);
+			$newRating = $model->updateAverageRating($id);
+
+			echo new JsonResponse($newRating, 'message' , 'error');
 		}
 		else
 		{

@@ -33,7 +33,13 @@ echo $this->message;
             <td><?php echo $item->tagline ?></td>
             <td><?php echo $item->description ?></td>
             <td><?php echo $item->abv ?></td>
-            <td><?php echo $item->rating ?> / 5</td>
+            <!--            <td>--><?php //echo $item->rating
+			?><!-- / 5</td>-->
+            <td><?php for ($i = 1; $i <= 5; $i++) : ?>
+
+
+
+				<?php endfor; ?></td>
         </tr>
 	<?php endforeach; ?>
 
