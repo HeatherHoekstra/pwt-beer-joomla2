@@ -1,26 +1,11 @@
 <?php
-/**
- * @package     Joomla.Site
- * @subpackage  com_tags
- *
- * @copyright   Copyright (C) 2005 - 2020 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
- */
-
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\ItemModel;
-use Joomla\CMS\Table\Table;
 
-/**
- * Tags Component Tag Model
- *
- * @since  3.1
- */
 class BeersModelBeer extends ItemModel
 {
-
 	protected $_item;
 
 	public function populateState()
@@ -51,10 +36,8 @@ class BeersModelBeer extends ItemModel
 		return $this->_item[$pk];
 	}
 
-
 	public function insertRating($id, $rating)
 	{
-
 		$db = Factory::getDbo();
 
 		$columns =
@@ -90,7 +73,7 @@ class BeersModelBeer extends ItemModel
 		$query
 			->select('rating')
 			->from($db->quoteName('#__ratings'))
-			->where($db->quoteName('beer_id'). '='. $db->quote($id));
+			->where($db->quoteName('beer_id') . '=' . $db->quote($id));
 
 		$db->setQuery($query);
 
@@ -100,15 +83,15 @@ class BeersModelBeer extends ItemModel
 	public function calcAverageRating($id)
 	{
 		$ratings = $this->getAllRatings($id);
-		$count = count($ratings);
-		$value = 0;
+		$count   = count($ratings);
+		$value   = 0;
 
-		foreach($ratings as $rating)
+		foreach ($ratings as $rating)
 		{
 			$value += $rating->rating;
 		}
 
-		return round(($value/$count));
+		return round(($value / $count));
 	}
 
 	public function updateAverageRating($id)
@@ -119,12 +102,10 @@ class BeersModelBeer extends ItemModel
 
 		$query = $db->getQuery(true);
 
-		// Fields to update.
 		$fields = [
 			$db->quoteName('rating') . ' = ' . $db->quote($avgRating),
 		];
 
-		// Conditions for which records should be updated.
 		$conditions = [
 			$db->quoteName('id') . ' = ' . $id,
 		];

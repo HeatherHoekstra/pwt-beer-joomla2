@@ -7,10 +7,7 @@ defined('_JEXEC') or die;
 
 $document = Factory::getDocument();
 JHtml::_('jquery.framework');
-
-
-//foreach ($this->item as $item) : ?>
-
+?>
 <h1><?php echo $this->item->name; ?></h1>
 <h4><?php echo $this->item->tagline ?></h4>
 
@@ -26,39 +23,32 @@ JHtml::_('jquery.framework');
 <p>Average rating: </p>
 
 <?php
-
-for ($i = 1; $i <= 5; $i++)
-{
-	echo "<span class='icon-star' id='rating-" . $i . "' style='font-size: 24px;'></span>";
-}
-
+    for ($i = 1; $i <= 5; $i++)
+    {
+        echo "<span class='icon-star' id='rating-" . $i . "' style='font-size: 24px;'></span>";
+    }
 ?>
-
-<?php //endforeach; ?>
 
 <hr>
 
 <p>Your rating:</p>
 <?php
-for ($i = 1; $i <= 5; $i++)
-{
-	echo "<span class='icon-star' id='star-" . $i . "' style='font-size: 24px;'></span>";
-}
-
+    for ($i = 1; $i <= 5; $i++)
+    {
+        echo "<span class='icon-star' id='star-" . $i . "' style='font-size: 24px;'></span>";
+    }
 ?>
 
 <input type="hidden" name="rating" value="<?php echo $this->item->rating; ?>">
 <input id="token" type="hidden" name="<?php echo JSession::getFormToken() ?>" value="1"/>
 
 <script>
-
     const activeColor = '#efef21';
     const beerID = new URL(document.URL).searchParams.get('id');
     let storageLocation = 'rating-' + beerID;
 
     window.onload = function () {
         activateStars(getRating(), 'rating');
-
         if (JSON.parse(localStorage.getItem(storageLocation)) !== null) {
             activateStars(JSON.parse(localStorage.getItem(storageLocation)).rating, 'star');
         }
@@ -70,7 +60,6 @@ for ($i = 1; $i <= 5; $i++)
 
     function insertLocalStorage(id) {
         let date = new Date;
-
         localStorage.setItem(storageLocation, JSON.stringify({'timestamp': date.getTime(), 'rating': id}));
     }
 
@@ -81,14 +70,12 @@ for ($i = 1; $i <= 5; $i++)
         }
 
         let date = new Date;
-
         return storage.timestamp === null ? true : (((date.getTime() / 1000) - (storage.timestamp / 1000)) > 5);
     }
 
     function ajaxCall(id) {
         if (checkLocalStorage()) {
 
-            // Request to test ajax call while page loads
             let token = jQuery("#token").attr("name");
             jQuery.ajax({
                 data: {[token]: "1", task: "ajax", format: "json", rating: id},

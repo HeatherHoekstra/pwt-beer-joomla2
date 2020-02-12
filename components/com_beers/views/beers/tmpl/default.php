@@ -1,10 +1,6 @@
 <?php
-
-
 echo $this->message;
-
 ?>
-
 <table class="table table-striped">
     <thead>
     <tr>
@@ -16,33 +12,28 @@ echo $this->message;
     </tr>
     </thead>
     <tbody>
-	<?php
+<?php
+$error = count($this->items) > 0 ? false : true;
 
-	$error = count($this->items) > 0 ? false : true;
-
-	foreach ($this->items as $item):
-//			$canEdit = $user->authorise('core.edit', 'com_beers.beers' . $item->id);
-//			$canChange = $user->authorise('core.edit.state', 'com_beers' . $item->id);
-
-		$string = "index.php?option=com_beers&task=beer&view=beer&id=" . $item->id;
-		?>
-        <tr>
-            <td>
-                <a href="<?php echo $string; ?>"><?php echo $item->name ?></a>
-            </td>
-            <td><?php echo $item->tagline ?></td>
-            <td><?php echo $item->description ?></td>
-            <td><?php echo $item->abv ?></td>
-            <!--            <td>--><?php //echo $item->rating
-			?><!-- / 5</td>-->
-            <td><?php for ($i = 1; $i <= 5; $i++) : ?>
+foreach ($this->items as $item):
+    $string = "index.php?option=com_beers&task=beer&view=beer&id=" . $item->id;
+    ?>
+    <tr>
+        <td>
+            <a href="<?php echo $string; ?>"><?php echo $item->name ?></a>
+        </td>
+        <td><?php echo $item->tagline ?></td>
+        <td><?php echo $item->description ?></td>
+        <td><?php echo $item->abv ?></td>
+        <!--            <td>--><?php //echo $item->rating
+        ?><!-- / 5</td>-->
+        <td><?php for ($i = 1; $i <= 5; $i++) : ?>
 
 
 
-				<?php endfor; ?></td>
-        </tr>
-	<?php endforeach; ?>
-
+            <?php endfor; ?></td>
+    </tr>
+<?php endforeach; ?>
     <td>
 		<?php if ($error)
 		{
