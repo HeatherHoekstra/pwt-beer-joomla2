@@ -23,6 +23,13 @@ class BeersControllerBeer extends JControllerForm
 {
 	public function ajax()
 	{
-		echo "test";
+		if (!JSession::checkToken('get'))
+		{
+			echo new JResponseJson(null, JText::_('JINVALID_TOKEN'), true);
+		}
+		else
+		{
+			parent::display();
+		}
 	}
 }

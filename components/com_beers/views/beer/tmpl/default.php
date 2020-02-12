@@ -6,6 +6,8 @@ use Joomla\CMS\Uri\Uri;
 defined('_JEXEC') or die;
 
 $document = Factory::getDocument();
+JHtml::_('jquery.framework');
+
 
 foreach ($this->item as $item) : ?>
 
@@ -22,11 +24,12 @@ foreach ($this->item as $item) : ?>
     <p><?php echo $item->description ?></p>
 
     <p>Average rating: </p>
+
 	<?php
 
 	for ($i = 1; $i <= 5; $i++)
 	{
-		echo "<button id='rating-" . $i . "'>" . $i . "</button>";
+		echo "<span class='icon-star' id='rating-" . $i . "' style='font-size: 24px;'></span>";
 	}
 
 	?>
@@ -39,7 +42,7 @@ foreach ($this->item as $item) : ?>
 <?php
 for ($i = 1; $i <= 5; $i++)
 {
-	echo "<button id='star-" . $i . "'>" . $i . "</button>";
+	echo "<span class='icon-star' id='star-" . $i . "' style='font-size: 24px;'></span>";
 }
 
 ?>
@@ -53,44 +56,35 @@ for ($i = 1; $i <= 5; $i++)
         let rating = document.getElementsByName('rating')[0];
         activateStars(rating.value, 'rating');
 
-        let data =
-            {
-                token: document.getElementById('token').getAttribute('name'),
-                option: 'com_beers',
-                format: 'json',
-            };
-
-        fetch('index.php?option=com_beers&rating=' + rating.value, {
-            method: 'POST',
-            header: {
-                'Content-Type': 'application/json',
-                'token': document.getElementById('token').getAttribute('name'),
-            }
-        })
-            .then(function (response) {
-                return response.text();
-            })
-            .then(function (text) {
-                console.error('error!');
-            });
+        // Request to test ajax call while page loads
+        let token = jQuery("#token").attr("name");
+        jQuery.ajax({
+            data: {[token]: "1", task: "ajax", format: "json", rating: rating.value},
+            success: function (result, status, xhr) {
+                console.log('ajax function successfully called!');
+            },
+            error: function () {
+                console.error('ajax call failed');
+            },
+        });
     };
 
     // Defining colors for active and inactive stars
-    const activeColor = 'yellow';
+    const activeColor = '#efef21';
     const deactiveColor = '';
 
     function activateStars(id, className) {
         clearStars(className);
         for (let i = 1; i <= id; i++) {
             let obj = document.getElementById(className + '-' + i).style;
-            obj.backgroundColor = activeColor;
+            obj.color = activeColor;
         }
     }
 
     // Clears rating 'form'
     function clearStars(className) {
         for (let i = 1; i <= 5; i++) {
-            document.getElementById(className + '-' + i).style.backgroundColor = deactiveColor;
+            document.getElementById(className + '-' + i).style.color = deactiveColor;
         }
     }
 
@@ -107,17 +101,19 @@ for ($i = 1; $i <= 5; $i++)
     });
 
     window.onbeforeunload = function () {
-        console.log('user gaat weg :(');
+        let rating = document.getElementsByName('rating')[0];
 
-        let rating = document.getElementsByName('rating')[0].value;
-        fetch('index.php?option=com_beers&task=beer.ajax&rating=' + rating)
-            .then(function (response) {
-                return response.text();
-            })
-            .then(function (text) {
-                console.error(text);
-            });
-
+        // Request to test ajax call while page loads
+        let token = jQuery("#token").attr("name");
+        jQuery.ajax({
+            data: {[token]: "1", task: "ajax", format: "json", rating: rating.value},
+            success: function (result, status, xhr) {
+                console.log('ajax function successfully called!');
+            },
+            error: function () {
+                console.error('ajax call failed');
+            },
+        });
     }
 
 </script>

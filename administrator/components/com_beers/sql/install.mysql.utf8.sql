@@ -26,7 +26,7 @@ CREATE TABLE `#__ratings`
     `id`        INT(11) NOT NULL AUTO_INCREMENT,
     `beer_id`   INT(11) NOT NULL,
     `rating`    INT(11) NOT NULL,
-    `ip_adress` VARCHAR(255),
+    `ip_address` VARCHAR(255),
     PRIMARY KEY (`id`)
 )
     ENGINE = InnoDB
