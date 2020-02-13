@@ -1,6 +1,4 @@
 <?php
-use Joomla\CMS\Factory;
-
 defined('_JEXEC') or die('Restricted access');
 
 class BeersControllerBeer extends JControllerForm

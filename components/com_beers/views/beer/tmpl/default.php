@@ -7,13 +7,16 @@ defined('_JEXEC') or die;
 
 $document = Factory::getDocument();
 JHtml::_('jquery.framework');
+
+$url = Uri::base() . 'templates/beers/beers.css';
+$document->addStyleSheet($url);
 ?>
 <h1><?php echo $this->item->name; ?></h1>
 <h4><?php echo $this->item->tagline ?></h4>
 
 <hr>
 <?php if ($this->item->image_url !== 'noimg'): ?>
-    <img src="<?php echo $this->item->image_url ?>" alt="test" width="100">
+    <img src="<?php echo $this->item->image_url ?>" alt="<?php echo $this->item->name ?>" width="100">
 	<?php echo str_replace('<a href="/', '<a href="' . str_replace(URI::root(true), '', URI::root()), $app); ?>
 <?php endif; ?>
 <hr>
@@ -23,20 +26,20 @@ JHtml::_('jquery.framework');
 <p>Average rating: </p>
 
 <?php
-    for ($i = 1; $i <= 5; $i++)
-    {
-        echo "<span class='icon-star' id='rating-" . $i . "' style='font-size: 24px;'></span>";
-    }
+for ($i = 1; $i <= 5; $i++)
+{
+	echo "<span class='icon-star' id='rating-" . $i . "'></span>";
+}
 ?>
 
 <hr>
 
 <p>Your rating:</p>
 <?php
-    for ($i = 1; $i <= 5; $i++)
-    {
-        echo "<span class='icon-star' id='star-" . $i . "' style='font-size: 24px;'></span>";
-    }
+for ($i = 1; $i <= 5; $i++)
+{
+	echo "<span class='icon-star' id='star-" . $i . "'></span>";
+}
 ?>
 
 <input type="hidden" name="rating" value="<?php echo $this->item->rating; ?>">

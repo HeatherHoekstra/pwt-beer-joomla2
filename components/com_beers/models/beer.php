@@ -36,34 +36,6 @@ class BeersModelBeer extends ItemModel
 		return $this->_item[$pk];
 	}
 
-	public function insertRating($id, $rating)
-	{
-		$db = Factory::getDbo();
-
-		$columns =
-			[
-				'beer_id',
-				'rating',
-			];
-
-		$values =
-			[
-				$db->quote($id),
-				$db->quote($rating),
-			];
-
-		$query = $db->getQuery(true);
-
-		$query
-			->insert($db->quoteName('#__ratings'))
-			->columns($columns)
-			->values(implode(',', $values));
-
-		$db->setQuery($query);
-
-		$db->execute();
-	}
-
 	public function getAllRatings($id)
 	{
 		$db = Factory::getDbo();

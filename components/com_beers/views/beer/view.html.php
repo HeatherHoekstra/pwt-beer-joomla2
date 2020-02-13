@@ -1,8 +1,6 @@
 <?php
 defined('_JEXEC') or die;
 
-use Joomla\CMS\Factory;
-
 class BeersViewBeer extends JViewLegacy
 {
 	public function display($tpl = null)

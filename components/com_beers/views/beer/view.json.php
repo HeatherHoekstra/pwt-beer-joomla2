@@ -15,7 +15,9 @@ class BeersViewBeer extends JViewLegacy
 
 		if ($rating)
 		{
-			$model->insertRating($id, $rating);
+			$obj = (object) ['beer_id' => $id, 'rating' => $rating];
+			Factory::getDbo()->insertObject('#__ratings', $obj);
+
 			$newRating = $model->updateAverageRating($id);
 			echo new JsonResponse($newRating, 'message', 'error');
 		}
