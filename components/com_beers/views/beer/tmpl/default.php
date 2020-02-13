@@ -71,19 +71,16 @@ for ($i = 1; $i <= 5; $i++)
         if (storage === null) {
             return true;
         }
-
         let date = new Date;
         return storage.timestamp === null ? true : (((date.getTime() / 1000) - (storage.timestamp / 1000)) > 5);
     }
 
     function ajaxCall(id) {
         if (checkLocalStorage()) {
-
             let token = jQuery("#token").attr("name");
             jQuery.ajax({
                 data: {[token]: "1", task: "ajax", format: "json", rating: id},
                 success: function (result, status, xhr) {
-                    console.log('ajax function successfully called!');
                     insertLocalStorage(id);
                     activateStars(result.data, 'rating');
                 },
@@ -110,10 +107,8 @@ for ($i = 1; $i <= 5; $i++)
 
     document.addEventListener('click', function (e) {
         if (e.target.id.match('star-')) {
-
             let idString = e.target.id;
             let id = idString.substr(idString.length - 1);
-
             activateStars(id, 'star');
             ajaxCall(id);
         }

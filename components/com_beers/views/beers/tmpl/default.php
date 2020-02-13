@@ -44,12 +44,9 @@ $document->addStyleSheet($url);
                 </td>
             </tr>
 		<?php endforeach; ?>
-
         </tbody>
     </table>
-
 <?php endif; ?>
-
 <?php if ($error)
 {
 	echo "<strong><h3>No beers were found at this moment...</h3></strong>";

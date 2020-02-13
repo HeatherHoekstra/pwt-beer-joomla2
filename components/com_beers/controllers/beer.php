@@ -3,6 +3,12 @@ defined('_JEXEC') or die('Restricted access');
 
 class BeersControllerBeer extends JControllerForm
 {
+	/**
+	 * Checks token for ajax request
+	 *
+	 * @since 0.0.1
+	 * */
+
 	public function ajax()
 	{
 		if (!JSession::checkToken('get'))

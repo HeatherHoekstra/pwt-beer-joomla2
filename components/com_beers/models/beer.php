@@ -8,12 +8,26 @@ class BeersModelBeer extends ItemModel
 {
 	protected $_item;
 
+	/**
+	 *  Setting state of Beer Model
+	 *
+	 *  @since 0.0.1
+	 * */
 	public function populateState()
 	{
 		$this->setState('beer.id', Factory::getApplication()->input->get('id'));
 		parent::populateState();
 	}
 
+	/**
+	 * Get item information
+	 *
+	 * @param   int     $pk        The id of item for which we need the associated items
+	 *
+	 * @return  JTable|null
+	 *
+	 * @since   0.0.1
+	 */
 	public function getItem($pk = null)
 	{
 		$pk = (!empty($pk)) ? $pk : (int) $this->getState('beer.id');
@@ -36,6 +50,13 @@ class BeersModelBeer extends ItemModel
 		return $this->_item[$pk];
 	}
 
+	/**
+	 * Method to retrieve all ratings for specific beer item
+	 *
+	 * @return Object List of all ratings for specific beer
+	 *
+	 * @since 0.0.1
+	 */
 	public function getAllRatings($id)
 	{
 		$db = Factory::getDbo();
@@ -52,6 +73,13 @@ class BeersModelBeer extends ItemModel
 		return $db->loadObjectList();
 	}
 
+	/**
+	 * Method to calculate the average rating given by users for specific beer
+	 *
+	 * @return int Average rating for a specific beer
+	 *
+	 * @since 0.0.1
+	 */
 	public function calcAverageRating($id)
 	{
 		$ratings = $this->getAllRatings($id);
@@ -66,6 +94,13 @@ class BeersModelBeer extends ItemModel
 		return round(($value / $count));
 	}
 
+	/**
+	 * Method to update the average rating for a specific beer
+	 *
+	 * @return int Average rating for specific beer
+	 *
+	 * @since 0.0.1
+	 */
 	public function updateAverageRating($id)
 	{
 		$avgRating = $this->calcAverageRating($id);
