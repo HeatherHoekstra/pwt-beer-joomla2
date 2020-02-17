@@ -25,9 +25,3 @@ defined('_JEXEC') or die;
     <input type="hidden" name="task" value="beer.save"/>
 	<?php echo JHtml::_('form.token'); ?>
 </form>
-
-
-<script>
-
-
-</script>
