@@ -28,3 +28,8 @@ defined('_JEXEC') or die;
 </form>
 
 
+<script>
+
+    
+
+</script>
