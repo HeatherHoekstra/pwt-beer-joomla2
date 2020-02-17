@@ -14,8 +14,9 @@ class BeersViewBeers extends HtmlView
 
 	public function display()
 	{
-		$this->items   = $this->get('Items');
-		$this->message = "Below a list consisting of several beers. If you like them, give them a rating!";
+		$this->items      = $this->get('Items');
+		$this->message    = "Below a list consisting of several beers. If you like them, give them a rating!";
+		$this->pagination = $this->get('Pagination');
 
 		parent::display();
 	}
