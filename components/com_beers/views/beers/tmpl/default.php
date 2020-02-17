@@ -54,6 +54,9 @@ $canEdit = 1;
 		<?php echo JHtml::_('form.token'); ?>
         <input type="hidden" name="task" value=""/>
     </form>
+
+	<?php echo $this->pagination->getListFooter(); ?>
+
 <?php endif; ?>
 <?php if ($error)
 {
