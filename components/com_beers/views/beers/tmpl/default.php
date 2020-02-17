@@ -3,16 +3,19 @@
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 
-echo $this->message;
 $error = count($this->items) > 0 ? false : true;
 
 $document = JFactory::getDocument();
 $url      = Uri::base() . 'templates/beers/beers.css';
 $document->addStyleSheet($url);
+
+$canEdit = 1;
 ?>
 
 <?php if (!$error) : ?>
-    <table class="table">
+    <form action="<?php echo Route::_('index.php?option=com_beers&view=beers&layout=create');?>" id="beer-form">
+    <a class="btn btn-primary" href="<?php echo Route::_('index.php?option=com_beers&view=beer&task=beer.create&layout=create'); ?>">Create new beer</a>
+        <table class="table">
         <thead>
         <tr>
             <th>Name</th>
@@ -46,9 +49,11 @@ $document->addStyleSheet($url);
 		<?php endforeach; ?>
         </tbody>
     </table>
+	    <?php echo JHtml::_('form.token'); ?>
+        <input type="hidden" name="task" value=""/>
+    </form>
 <?php endif; ?>
 <?php if ($error)
 {
 	echo "<strong><h3>No beers were found at this moment...</h3></strong>";
 } ?>
-<?php echo JHtml::_('form.token'); ?>

@@ -43,7 +43,8 @@ for ($i = 1; $i <= 5; $i++)
 ?>
 
 <input type="hidden" name="rating" value="<?php echo $this->item->rating; ?>">
-<input id="token" type="hidden" name="<?php echo JSession::getFormToken() ?>" value="1"/>
+<!--<input id="token" type="hidden" name="--><?php //echo JSession::getFormToken() ?><!--" value="1"/>-->
+<?php echo JHtml::_('form.token');?>
 
 <script>
     const activeColor = '#efef21';

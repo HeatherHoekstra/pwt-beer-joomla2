@@ -1,7 +1,10 @@
 <?php
+
 defined('_JEXEC') or die;
 
-class BeersViewBeers extends JViewLegacy
+use Joomla\CMS\MVC\View\HtmlView;
+
+class BeersViewBeers extends HtmlView
 {
 	/**
 	 * @var    string  The name of the extension for the category
