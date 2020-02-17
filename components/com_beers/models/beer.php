@@ -31,7 +31,7 @@ class BeersModelBeer extends AdminModel
 	/**
 	 *  Setting state of Beer Model
 	 *
-	 *  @since 0.0.1
+	 * @since 0.0.1
 	 * */
 	public function populateState()
 	{
@@ -42,7 +42,7 @@ class BeersModelBeer extends AdminModel
 	/**
 	 * Get item information
 	 *
-	 * @param   int     $pk        The id of item for which we need the associated items
+	 * @param   int  $pk  The id of item for which we need the associated items
 	 *
 	 * @return  JTable|null
 	 *

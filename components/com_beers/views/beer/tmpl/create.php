@@ -18,18 +18,16 @@ defined('_JEXEC') or die;
 
 	<?php echo $this->form->renderFieldset('details'); ?>
 
-<!--	<a href="--><?php //echo JRoute::_('index.php/beers?task=beer.save'); ?><!--" class="btn btn-primary">Create new beer</a>-->
     <div class="col-md-12">
         <button type="submit" class="btn btn-primary">Create new beer</button>
     </div>
 
-	<input type="hidden" name="task" value="beer.save"/>
+    <input type="hidden" name="task" value="beer.save"/>
 	<?php echo JHtml::_('form.token'); ?>
 </form>
 
 
 <script>
 
-    
 
 </script>

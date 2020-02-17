@@ -43,20 +43,16 @@ class BeersControllerBeer extends FormController
 		}
 	}
 
+	/**
+	*
+	* Overwriting the regular allowSave method to always give permission
+	*
+	* @return 	boolean Allowing saving a new item from non-users
+	*
+	* @since	1.7
+	* */
 	protected function allowSave($data, $key = 'id')
 	{
 		return true;
 	}
-//
-//	public function save()
-//	{
-//		$app   = Factory::getApplication();
-//		$input = $app->input->post;
-//		$model = $this->getModel();
-//		$form = $model->getForm();
-//
-//		echo 'test';
-//
-////		$model->save(['name' => 'TestBeer', 'tagline' => 'Beautiful tagline written for TestBeer', 'description' => 'A well written description', 'abv' => '5.6']);
-//	}
 }

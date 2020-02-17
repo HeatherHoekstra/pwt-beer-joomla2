@@ -34,7 +34,7 @@ class BeersViewBeer extends HtmlView
 	public function display($tpl = null)
 	{
 		/** @var BeersModelBeer $model */
-		$model = $this->getModel();
+		$model      = $this->getModel();
 		$this->item = $model->getItem();
 
 		$this->form = $this->getForm();
