@@ -2,8 +2,10 @@
 
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
+use Joomla\CMS\Response\JsonResponse;
 
 class BeersControllerBeer extends FormController
 {
@@ -44,15 +46,40 @@ class BeersControllerBeer extends FormController
 	}
 
 	/**
-	*
-	* Overwriting the regular allowSave method to always give permission
-	*
-	* @return 	boolean Allowing saving a new item from non-users
-	*
-	* @since	1.7
-	* */
+	 *
+	 * Overwriting the regular allowSave method to always give permission
+	 *
+	 * @return    boolean Allowing saving a new item from non-users
+	 *
+	 * @since    1.7
+	 * */
 	protected function allowSave($data, $key = 'id')
 	{
 		return true;
+	}
+
+	/**
+	 *
+	 * Overwriting save function to check data type of abv field
+	 *
+	 * @throws Exception
+	 * @since     1.8
+	 *
+	 */
+
+	public function save()
+	{
+		$input = Factory::getApplication()->input;
+		$abv   = $input->get('jform')[4];
+
+		if (!is_numeric($abv))
+		{
+
+			echo new JsonResponse('Alcohol percentage is not nummeric', 'Error', true);
+
+			return;
+		}
+
+		parent::save();
 	}
 }
