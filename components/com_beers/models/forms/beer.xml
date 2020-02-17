@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fieldset name="details">
+
+        <field
+                name="id"
+                label="JGLOBAL_FIELD_ID_LABEL"
+                description="JGLOBAL_FIELD_ID_DESC"
+                default="0"
+                readonly="true"
+                class="readonly"
+                type="hidden"
+        />
+
+        <field
+                name="name"
+                type="text"
+                label="COM_BEERS_FIELD_NAME_LABEL"
+                description="COM_BEERS_FIELD_NAME_DESC"
+                class="input-xxlarge input-large-text"
+                size="40"
+                required="true"
+        />
+
+        <field
+                name="tagline"
+                type="text"
+                label="COM_BEERS_FIELD_TAGLINE_LABEL"
+                description="COM_BEERS_FIELD_ABV_DESC"
+                class="input-xxlarge input-large-text"
+                size="40"
+                required="true"
+        />
+
+        <field
+                name="description"
+                type="textarea"
+                label="COM_BEERS_FIELD_DESCRIPTION_LABEL"
+                description="COM_BEERS_FIELD_DESCRIPTION_DESC"
+                class="input-xxlarge input-large-text"
+                size="40"
+                rows="10"
+                required="true"
+        />
+
+        <field
+                name="abv"
+                type="text"
+                label="COM_BEERS_FIELD_ABV_LABEL"
+                description="COM_BEERS_FIELD_NAME_DESC"
+                class="input-xxlarge input-large-text"
+                size="40"
+                required="true"
+        />
+
+        <field
+                name="rating"
+                type="number"
+                label="COM_BEERS_FIELD_RATING_LABEL"
+                description="COM_BEERS_FIELD_RATING_LABEL"
+                class="input-xxlarge input-large-text readonly"
+                size="40"
+                required="true"
+                min="0"
+                max="5"
+        />
+
+        <field
+                name="image_url"
+                type="URL"
+                label="COM_BEERS_URL_LABEL"
+                description="COM_BEERS_FIELD_RATING_LABEL"
+                class="input-xxlarge input-large-text"
+                size="40"
+                required="false"
+        />
+
+    </fieldset>
+
+</form>
