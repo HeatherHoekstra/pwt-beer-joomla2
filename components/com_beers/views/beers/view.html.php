@@ -21,5 +21,3 @@ class BeersViewBeers extends HtmlView
 		parent::display();
 	}
 }
-
-

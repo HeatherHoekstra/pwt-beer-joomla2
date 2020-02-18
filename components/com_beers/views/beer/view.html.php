@@ -39,7 +39,6 @@ class BeersViewBeer extends HtmlView
 
 		$this->form = $this->getForm();
 
-
 		parent::display($tpl);
 	}
 }
