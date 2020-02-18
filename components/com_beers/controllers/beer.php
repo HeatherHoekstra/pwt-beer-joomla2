@@ -46,7 +46,6 @@ class BeersControllerBeer extends FormController
 	}
 
 	/**
-	 *
 	 * Overwriting the regular allowSave method to always give permission
 	 *
 	 * @return    boolean Allowing saving a new item from non-users
@@ -59,12 +58,11 @@ class BeersControllerBeer extends FormController
 	}
 
 	/**
-	 *
 	 * Overwriting save function to check data type of abv field
 	 *
 	 * @throws Exception
-	 * @since     1.8
 	 *
+	 * @since     1.8
 	 */
 
 	public function save()
@@ -74,8 +72,8 @@ class BeersControllerBeer extends FormController
 
 		if (!is_numeric($abv))
 		{
-
-			echo new JsonResponse('Alcohol percentage is not nummeric', 'Error', true);
+			Factory::getApplication()->enqueueMessage('Alcohol percentage is not a number', 'error');
+			Factory::getApplication()->redirect('index.php?option=com_beers&view=beer&layout=create');
 
 			return;
 		}
