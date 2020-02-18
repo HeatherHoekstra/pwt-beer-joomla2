@@ -11,8 +11,6 @@
 defined('_JEXEC') or die;
 
 ?>
-
-
 <form action="<?php echo JRoute::_('index.php?option=com_beers&view=beer'); ?>"
       method="post" name="adminForm" id="beer-form adminForm" class="form-validate">
 
@@ -25,3 +23,10 @@ defined('_JEXEC') or die;
     <input type="hidden" name="task" value="beer.save"/>
 	<?php echo JHtml::_('form.token'); ?>
 </form>
+
+<script>
+    document.addEventListener('submit', function (e) {
+        var abv = document.getElementsByName('jform[abv]')[0];
+        abv.value = abv.value.replace(',', '.');
+    })
+</script>
